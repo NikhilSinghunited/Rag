@@ -26,13 +26,13 @@ if not GOOGLE_API_KEY:
 # ---------------- Step 1: Load ALL markdown files ----------------
 documents_dir = Path("./documents")
 if not documents_dir.exists():
-    raise SystemExit(f"❌ Directory not found: {documents_dir}")
+    raise SystemExit(f" Directory not found: {documents_dir}")
 
 all_files = list(documents_dir.glob("*.md"))
 if not all_files:
-    raise SystemExit(f"❌ No markdown files found in {documents_dir}")
+    raise SystemExit(f" No markdown files found in {documents_dir}")
 
-print(f"📂 Found {len(all_files)} markdown files.")
+print(f" Found {len(all_files)} markdown files.")
 
 raw_docs = []
 for file_path in all_files:

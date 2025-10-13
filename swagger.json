@@ -1,0 +1,1077 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Aviation Industry - Fake API Collection",
+    "version": "1.0.0",
+    "description": "A large collection (100 endpoints) of fake aviation-related APIs with example responses for testing and demo purposes."
+  },
+  "servers": [
+    { "url": "https://api.fake-aviation.example.com", "description": "Demo server" }
+  ],
+  "paths": {
+    "/api/v1/aircraft/list": {
+      "get": {
+        "summary": "List aircraft",
+        "responses": {
+          "200": {
+            "description": "Array of aircraft",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Aircraft" } },
+                "examples": { "list": { "$ref": "#/components/examples/AircraftListExample" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/aircraft/get": {
+      "get": {
+        "summary": "Get aircraft by id (query param)",
+        "parameters": [
+          { "name": "id", "in": "query", "schema": { "type": "string" }, "required": true }
+        ],
+        "responses": {
+          "200": {
+            "description": "Single aircraft",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Aircraft" },
+                "examples": { "one": { "$ref": "#/components/examples/AircraftOneExample" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/aircraft/search": {
+      "get": {
+        "summary": "Search aircraft",
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Aircraft" } },
+                "examples": { "search": { "$ref": "#/components/examples/AircraftListExample" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/aircraft/create": {
+      "post": {
+        "summary": "Create new aircraft (fake)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Aircraft" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created aircraft",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Aircraft" },
+                "examples": { "created": { "$ref": "#/components/examples/AircraftOneExample" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/aircraft/update": {
+      "put": {
+        "summary": "Update aircraft (fake)",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Aircraft" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated aircraft",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Aircraft" },
+                "examples": { "updated": { "$ref": "#/components/examples/AircraftOneExample" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/aircraft/delete": {
+      "delete": {
+        "summary": "Delete aircraft (fake)",
+        "parameters": [
+          { "name": "id", "in": "query", "schema": { "type": "string" }, "required": true }
+        ],
+        "responses": {
+          "204": { "description": "Deleted - no content" }
+        }
+      }
+    },
+    "/api/v1/aircraft/status": {
+      "get": {
+        "summary": "Aircraft status summary",
+        "responses": {
+          "200": {
+            "description": "List of aircraft status",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Aircraft" } },
+                "examples": { "status": { "$ref": "#/components/examples/AircraftListExample" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/aircraft/history": {
+      "get": {
+        "summary": "Aircraft operational history",
+        "responses": {
+          "200": {
+            "description": "History records",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/MaintenanceRecord" } },
+                "examples": { "history": { "$ref": "#/components/examples.MaintenanceListExample" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/aircraft/stats": {
+      "get": {
+        "summary": "Aircraft statistics",
+        "responses": {
+          "200": {
+            "description": "Stats summary",
+            "content": {
+              "application/json": {
+                "schema": { "type": "object", "properties": { "total": { "type": "integer" }, "active": { "type": "integer" } } },
+                "examples": { "stats": { "value": { "total": 180, "active": 160 } } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/aircraft/audit": {
+      "get": {
+        "summary": "Aircraft audit log",
+        "responses": {
+          "200": {
+            "description": "Audit entries",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "type": "object" } },
+                "examples": {
+                  "audit": {
+                    "value": [
+                      { "id": "AUD-001", "action": "created", "actor": "system", "timestamp": "2025-10-01T08:00:00Z" },
+                      { "id": "AUD-002", "action": "maintenance_logged", "actor": "tech.jane", "timestamp": "2025-10-02T10:32:00Z" },
+                      { "id": "AUD-003", "action": "status_changed", "actor": "ops.bob", "timestamp": "2025-10-03T07:15:00Z" }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/v1/flights/list": {
+      "get": {
+        "summary": "List flights",
+        "responses": {
+          "200": {
+            "description": "Array of flights",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Flight" } },
+                "examples": { "list": { "$ref": "#/components/examples.FlightListExample" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/flights/get": {
+      "get": {
+        "summary": "Get flight details by id",
+        "parameters": [
+          { "name": "flightId", "in": "query", "schema": { "type": "string" }, "required": true }
+        ],
+        "responses": {
+          "200": {
+            "description": "Flight detail",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Flight" },
+                "examples": { "one": { "$ref": "#/components/examples.FlightOneExample" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/flights/search": {
+      "get": {
+        "summary": "Search flights",
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Flight" } },
+                "examples": { "search": { "$ref": "#/components/examples.FlightListExample" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/flights/create": {
+      "post": {
+        "summary": "Create flight (fake)",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Flight" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Flight" }, "examples": { "created": { "$ref": "#/components/examples.FlightOneExample" } } } }
+          }
+        }
+      }
+    },
+    "/api/v1/flights/update": {
+      "put": {
+        "summary": "Update flight (fake)",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Flight" } } } },
+        "responses": { "200": { "description": "Updated", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Flight" }, "examples": { "updated": { "$ref": "#/components/examples.FlightOneExample" } } } } } }
+      }
+    },
+    "/api/v1/flights/delete": {
+      "delete": {
+        "summary": "Delete flight (fake)",
+        "parameters": [{ "name": "flightId", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "204": { "description": "Deleted" } }
+      }
+    },
+    "/api/v1/flights/status": {
+      "get": {
+        "summary": "Flight status board",
+        "responses": { "200": { "description": "Statuses", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Flight" } }, "examples": { "board": { "$ref": "#/components/examples.FlightListExample" } } } } } }
+      }
+    },
+    "/api/v1/flights/history": {
+      "get": {
+        "summary": "Flight history",
+        "responses": { "200": { "description": "History", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Flight" } }, "examples": { "history": { "$ref": "#/components/examples.FlightListExample" } } } } } }
+      }
+    },
+    "/api/v1/flights/stats": {
+      "get": {
+        "summary": "Flight stats",
+        "responses": { "200": { "description": "Flight stats", "content": { "application/json": { "schema": { "type": "object" }, "examples": { "stats": { "value": { "totalFlights": 1250, "onTime": 1090, "delayed": 160 } } } } } } }
+      }
+    },
+    "/api/v1/flights/audit": {
+      "get": {
+        "summary": "Flight audit log",
+        "responses": { "200": { "description": "Audit records", "content": { "application/json": { "schema": { "type": "array", "items": { "type": "object" } }, "examples": { "audit": { "value": [ { "id": "F-AUD-001", "action": "status_update", "actor": "ops", "timestamp": "2025-09-30T12:00:00Z" } ] } } } } } }
+      }
+    },
+
+    "/api/v1/airports/list": {
+      "get": {
+        "summary": "List airports",
+        "responses": {
+          "200": {
+            "description": "Array of airports",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Airport" } },
+                "examples": { "list": { "$ref": "#/components/examples.AirportListExample" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/airports/get": {
+      "get": {
+        "summary": "Get airport",
+        "parameters": [{ "name": "iata", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "200": { "description": "Airport", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Airport" }, "examples": { "one": { "$ref": "#/components/examples.AirportOneExample" } } } } } }
+      }
+    },
+    "/api/v1/airports/search": {
+      "get": {
+        "summary": "Search airports",
+        "responses": { "200": { "description": "Search results", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Airport" } }, "examples": { "search": { "$ref": "#/components/examples.AirportListExample" } } } } } }
+      }
+    },
+    "/api/v1/airports/create": {
+      "post": {
+        "summary": "Create airport",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Airport" } } } },
+        "responses": { "201": { "description": "Created", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Airport" }, "examples": { "created": { "$ref": "#/components/examples.AirportOneExample" } } } } } }
+      }
+    },
+    "/api/v1/airports/update": {
+      "put": {
+        "summary": "Update airport",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Airport" } } } },
+        "responses": { "200": { "description": "Updated", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Airport" }, "examples": { "updated": { "$ref": "#/components/examples.AirportOneExample" } } } } } }
+      }
+    },
+    "/api/v1/airports/delete": {
+      "delete": {
+        "summary": "Delete airport",
+        "parameters": [{ "name": "iata", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "204": { "description": "Deleted" } }
+      }
+    },
+    "/api/v1/airports/status": {
+      "get": {
+        "summary": "Airport operational status",
+        "responses": { "200": { "description": "Status list", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Airport" } }, "examples": { "status": { "$ref": "#/components/examples.AirportListExample" } } } } } }
+      }
+    },
+    "/api/v1/airports/history": {
+      "get": {
+        "summary": "Airport event history",
+        "responses": { "200": { "description": "History", "content": { "application/json": { "schema": { "type": "array", "items": { "type": "object" } }, "examples": { "history": { "value": [ { "event": "runway_closed", "timestamp": "2025-09-20T05:00:00Z", "reason": "maintenance" } ] } } } } } }
+      }
+    },
+    "/api/v1/airports/stats": {
+      "get": {
+        "summary": "Airport statistics",
+        "responses": { "200": { "description": "Stats", "content": { "application/json": { "schema": { "type": "object" }, "examples": { "stats": { "value": { "totalPassengers": 2500000, "movements": 45000 } } } } } } }
+      }
+    },
+    "/api/v1/airports/audit": {
+      "get": {
+        "summary": "Airport audit",
+        "responses": { "200": { "description": "Audit", "content": { "application/json": { "schema": { "type": "array", "items": { "type": "object" } }, "examples": { "audit": { "value": [ { "id": "AP-AUD-001", "action": "safety_check", "actor": "safety.team", "timestamp": "2025-08-15T09:00:00Z" } ] } } } } } }
+      }
+    },
+
+    "/api/v1/crew/list": {
+      "get": {
+        "summary": "List crew members",
+        "responses": { "200": { "description": "Crew array", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/CrewMember" } }, "examples": { "list": { "$ref": "#/components/examples.CrewListExample" } } } } } }
+      }
+    },
+    "/api/v1/crew/get": {
+      "get": {
+        "summary": "Get crew member",
+        "parameters": [{ "name": "crewId", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "200": { "description": "Crew", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CrewMember" }, "examples": { "one": { "$ref": "#/components/examples.CrewOneExample" } } } } } }
+      }
+    },
+    "/api/v1/crew/search": {
+      "get": {
+        "summary": "Search crew",
+        "responses": { "200": { "description": "Crew results", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/CrewMember" } }, "examples": { "search": { "$ref": "#/components/examples.CrewListExample" } } } } } }
+      }
+    },
+    "/api/v1/crew/create": {
+      "post": {
+        "summary": "Create crew member",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CrewMember" } } } },
+        "responses": { "201": { "description": "Created", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CrewMember" }, "examples": { "created": { "$ref": "#/components/examples.CrewOneExample" } } } } } }
+      }
+    },
+    "/api/v1/crew/update": {
+      "put": {
+        "summary": "Update crew",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CrewMember" } } } },
+        "responses": { "200": { "description": "Updated", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/CrewMember" }, "examples": { "updated": { "$ref": "#/components/examples.CrewOneExample" } } } } } }
+      }
+    },
+    "/api/v1/crew/delete": {
+      "delete": {
+        "summary": "Delete crew member",
+        "parameters": [{ "name": "crewId", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "204": { "description": "Deleted" } }
+      }
+    },
+    "/api/v1/crew/status": {
+      "get": {
+        "summary": "Crew duty status",
+        "responses": { "200": { "description": "Statuses", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/CrewMember" } }, "examples": { "status": { "$ref": "#/components/examples.CrewListExample" } } } } } }
+      }
+    },
+    "/api/v1/crew/history": {
+      "get": {
+        "summary": "Crew history",
+        "responses": { "200": { "description": "History", "content": { "application/json": { "schema": { "type": "array", "items": { "type": "object" } }, "examples": { "history": { "value": [ { "crewId": "CR-100", "event": "training_completed", "timestamp": "2025-07-01T09:00:00Z" } ] } } } } } }
+      }
+    },
+    "/api/v1/crew/stats": {
+      "get": {
+        "summary": "Crew stats",
+        "responses": { "200": { "description": "Stats", "content": { "application/json": { "schema": { "type": "object" }, "examples": { "stats": { "value": { "totalCrew": 850, "available": 720 } } } } } } }
+      }
+    },
+    "/api/v1/crew/audit": {
+      "get": {
+        "summary": "Crew audit",
+        "responses": { "200": { "description": "Audit entries", "content": { "application/json": { "schema": { "type": "array", "items": { "type": "object" } }, "examples": { "audit": { "value": [ { "id": "CR-AUD-001", "action": "license_renewed", "actor": "hr", "timestamp": "2025-03-12T08:00:00Z" } ] } } } } } }
+      }
+    },
+
+    "/api/v1/maintenance/list": {
+      "get": {
+        "summary": "List maintenance records",
+        "responses": { "200": { "description": "List", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/MaintenanceRecord" } }, "examples": { "list": { "$ref": "#/components/examples.MaintenanceListExample" } } } } } }
+      }
+    },
+    "/api/v1/maintenance/get": {
+      "get": {
+        "summary": "Get maintenance record",
+        "parameters": [{ "name": "recordId", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "200": { "description": "Record", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/MaintenanceRecord" }, "examples": { "one": { "$ref": "#/components/examples.MaintenanceOneExample" } } } } } }
+      }
+    },
+    "/api/v1/maintenance/search": {
+      "get": {
+        "summary": "Search maintenance",
+        "responses": { "200": { "description": "Results", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/MaintenanceRecord" } }, "examples": { "search": { "$ref": "#/components/examples.MaintenanceListExample" } } } } } }
+      }
+    },
+    "/api/v1/maintenance/create": {
+      "post": {
+        "summary": "Create maintenance record",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/MaintenanceRecord" } } } },
+        "responses": { "201": { "description": "Created", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/MaintenanceRecord" }, "examples": { "created": { "$ref": "#/components/examples.MaintenanceOneExample" } } } } } }
+      }
+    },
+    "/api/v1/maintenance/update": {
+      "put": {
+        "summary": "Update maintenance",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/MaintenanceRecord" } } } },
+        "responses": { "200": { "description": "Updated", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/MaintenanceRecord" }, "examples": { "updated": { "$ref": "#/components/examples.MaintenanceOneExample" } } } } } }
+      }
+    },
+    "/api/v1/maintenance/delete": {
+      "delete": {
+        "summary": "Delete maintenance record",
+        "parameters": [{ "name": "recordId", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "204": { "description": "Deleted" } }
+      }
+    },
+    "/api/v1/maintenance/status": {
+      "get": {
+        "summary": "Maintenance status",
+        "responses": { "200": { "description": "Statuses", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/MaintenanceRecord" } }, "examples": { "status": { "$ref": "#/components/examples.MaintenanceListExample" } } } } } }
+      }
+    },
+    "/api/v1/maintenance/history": {
+      "get": {
+        "summary": "Maintenance history",
+        "responses": { "200": { "description": "History", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/MaintenanceRecord" } }, "examples": { "history": { "$ref": "#/components/examples.MaintenanceListExample" } } } } } }
+      }
+    },
+    "/api/v1/maintenance/stats": {
+      "get": {
+        "summary": "Maintenance stats",
+        "responses": { "200": { "description": "Stats", "content": { "application/json": { "schema": { "type": "object" }, "examples": { "stats": { "value": { "records": 420, "openIssues": 12 } } } } } } }
+      }
+    },
+    "/api/v1/maintenance/audit": {
+      "get": {
+        "summary": "Maintenance audit",
+        "responses": { "200": { "description": "Audit", "content": { "application/json": { "schema": { "type": "array", "items": { "type": "object" } }, "examples": { "audit": { "value": [ { "id": "MT-AUD-001", "action": "log_added", "actor": "tech.paul", "timestamp": "2025-06-12T11:00:00Z" } ] } } } } } }
+      }
+    },
+
+    "/api/v1/weather/list": {
+      "get": {
+        "summary": "List weather reports",
+        "responses": { "200": { "description": "Weather list", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/WeatherReport" } }, "examples": { "list": { "$ref": "#/components/examples.WeatherListExample" } } } } } }
+      }
+    },
+    "/api/v1/weather/get": {
+      "get": {
+        "summary": "Get weather for airport",
+        "parameters": [{ "name": "iata", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "200": { "description": "Weather", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WeatherReport" }, "examples": { "one": { "$ref": "#/components/examples.WeatherOneExample" } } } } } }
+      }
+    },
+    "/api/v1/weather/search": {
+      "get": {
+        "summary": "Search weather reports",
+        "responses": { "200": { "description": "Search", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/WeatherReport" } }, "examples": { "search": { "$ref": "#/components/examples.WeatherListExample" } } } } } }
+      }
+    },
+    "/api/v1/weather/create": {
+      "post": {
+        "summary": "Create weather report (fake)",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WeatherReport" } } } },
+        "responses": { "201": { "description": "Created", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WeatherReport" }, "examples": { "created": { "$ref": "#/components/examples.WeatherOneExample" } } } } } }
+      }
+    },
+    "/api/v1/weather/update": {
+      "put": {
+        "summary": "Update weather report",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WeatherReport" } } } },
+        "responses": { "200": { "description": "Updated", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/WeatherReport" }, "examples": { "updated": { "$ref": "#/components/examples.WeatherOneExample" } } } } } }
+      }
+    },
+    "/api/v1/weather/delete": {
+      "delete": {
+        "summary": "Delete weather report",
+        "parameters": [{ "name": "reportId", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "204": { "description": "Deleted" } }
+      }
+    },
+    "/api/v1/weather/status": {
+      "get": {
+        "summary": "Weather alert status",
+        "responses": { "200": { "description": "Status", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/WeatherReport" } }, "examples": { "status": { "$ref": "#/components/examples.WeatherListExample" } } } } } }
+      }
+    },
+    "/api/v1/weather/history": {
+      "get": {
+        "summary": "Weather history",
+        "responses": { "200": { "description": "History", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/WeatherReport" } }, "examples": { "history": { "$ref": "#/components/examples.WeatherListExample" } } } } } }
+      }
+    },
+    "/api/v1/weather/stats": {
+      "get": {
+        "summary": "Weather stats",
+        "responses": { "200": { "description": "Stats", "content": { "application/json": { "schema": { "type": "object" }, "examples": { "stats": { "value": { "reports": 3200, "alerts": 18 } } } } } } }
+      }
+    },
+    "/api/v1/weather/audit": {
+      "get": {
+        "summary": "Weather audit",
+        "responses": { "200": { "description": "Audit", "content": { "application/json": { "schema": { "type": "array", "items": { "type": "object" } }, "examples": { "audit": { "value": [ { "id": "W-AUD-001", "action": "metar_received", "actor": "metar.bot", "timestamp": "2025-10-02T01:22:00Z" } ] } } } } } }
+      }
+    },
+
+    "/api/v1/bookings/list": {
+      "get": {
+        "summary": "List bookings",
+        "responses": { "200": { "description": "Bookings", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Booking" } }, "examples": { "list": { "$ref": "#/components/examples.BookingListExample" } } } } } }
+      }
+    },
+    "/api/v1/bookings/get": {
+      "get": {
+        "summary": "Get booking",
+        "parameters": [{ "name": "bookingId", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "200": { "description": "Booking", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Booking" }, "examples": { "one": { "$ref": "#/components/examples.BookingOneExample" } } } } } }
+      }
+    },
+    "/api/v1/bookings/search": {
+      "get": {
+        "summary": "Search bookings",
+        "responses": { "200": { "description": "Search", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Booking" } }, "examples": { "search": { "$ref": "#/components/examples.BookingListExample" } } } } } }
+      }
+    },
+    "/api/v1/bookings/create": {
+      "post": {
+        "summary": "Create booking (fake)",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Booking" } } } },
+        "responses": { "201": { "description": "Created", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Booking" }, "examples": { "created": { "$ref": "#/components/examples.BookingOneExample" } } } } } }
+      }
+    },
+    "/api/v1/bookings/update": {
+      "put": {
+        "summary": "Update booking",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Booking" } } } },
+        "responses": { "200": { "description": "Updated", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Booking" }, "examples": { "updated": { "$ref": "#/components/examples.BookingOneExample" } } } } } }
+      }
+    },
+    "/api/v1/bookings/delete": {
+      "delete": {
+        "summary": "Delete booking",
+        "parameters": [{ "name": "bookingId", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "204": { "description": "Deleted" } }
+      }
+    },
+    "/api/v1/bookings/status": {
+      "get": {
+        "summary": "Booking status",
+        "responses": { "200": { "description": "Status list", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Booking" } }, "examples": { "status": { "$ref": "#/components/examples.BookingListExample" } } } } } }
+      }
+    },
+    "/api/v1/bookings/history": {
+      "get": {
+        "summary": "Booking history",
+        "responses": { "200": { "description": "History", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Booking" } }, "examples": { "history": { "$ref": "#/components/examples.BookingListExample" } } } } } }
+      }
+    },
+    "/api/v1/bookings/stats": {
+      "get": {
+        "summary": "Booking stats",
+        "responses": { "200": { "description": "Stats", "content": { "application/json": { "schema": { "type": "object" }, "examples": { "stats": { "value": { "totalBookings": 54000, "cancelled": 420 } } } } } } }
+      }
+    },
+    "/api/v1/bookings/audit": {
+      "get": {
+        "summary": "Booking audit",
+        "responses": { "200": { "description": "Audit", "content": { "application/json": { "schema": { "type": "array", "items": { "type": "object" } }, "examples": { "audit": { "value": [ { "id": "BK-AUD-001", "action": "ticket_issued", "actor": "sales.agent", "timestamp": "2025-04-22T10:00:00Z" } ] } } } } } }
+      }
+    },
+
+    "/api/v1/cargo/list": {
+      "get": {
+        "summary": "List cargo shipments",
+        "responses": { "200": { "description": "List", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Cargo" } }, "examples": { "list": { "$ref": "#/components/examples.CargoListExample" } } } } } }
+      }
+    },
+    "/api/v1/cargo/get": {
+      "get": {
+        "summary": "Get cargo shipment",
+        "parameters": [{ "name": "cargoId", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "200": { "description": "Cargo", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Cargo" }, "examples": { "one": { "$ref": "#/components/examples.CargoOneExample" } } } } } }
+      }
+    },
+    "/api/v1/cargo/search": {
+      "get": {
+        "summary": "Search cargo",
+        "responses": { "200": { "description": "Search", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Cargo" } }, "examples": { "search": { "$ref": "#/components/examples.CargoListExample" } } } } } }
+      }
+    },
+    "/api/v1/cargo/create": {
+      "post": {
+        "summary": "Create cargo shipment (fake)",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Cargo" } } } },
+        "responses": { "201": { "description": "Created", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Cargo" }, "examples": { "created": { "$ref": "#/components/examples.CargoOneExample" } } } } } }
+      }
+    },
+    "/api/v1/cargo/update": {
+      "put": {
+        "summary": "Update cargo",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Cargo" } } } },
+        "responses": { "200": { "description": "Updated", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Cargo" }, "examples": { "updated": { "$ref": "#/components/examples.CargoOneExample" } } } } } }
+      }
+    },
+    "/api/v1/cargo/delete": {
+      "delete": {
+        "summary": "Delete cargo",
+        "parameters": [{ "name": "cargoId", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "204": { "description": "Deleted" } }
+      }
+    },
+    "/api/v1/cargo/status": {
+      "get": {
+        "summary": "Cargo status",
+        "responses": { "200": { "description": "Status", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Cargo" } }, "examples": { "status": { "$ref": "#/components/examples.CargoListExample" } } } } } }
+      }
+    },
+    "/api/v1/cargo/history": {
+      "get": {
+        "summary": "Cargo history",
+        "responses": { "200": { "description": "History", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Cargo" } }, "examples": { "history": { "$ref": "#/components/examples.CargoListExample" } } } } } }
+      }
+    },
+    "/api/v1/cargo/stats": {
+      "get": {
+        "summary": "Cargo stats",
+        "responses": { "200": { "description": "Stats", "content": { "application/json": { "schema": { "type": "object" }, "examples": { "stats": { "value": { "shipments": 7400, "delays": 210 } } } } } } }
+      }
+    },
+    "/api/v1/cargo/audit": {
+      "get": {
+        "summary": "Cargo audit",
+        "responses": { "200": { "description": "Audit", "content": { "application/json": { "schema": { "type": "array", "items": { "type": "object" } }, "examples": { "audit": { "value": [ { "id": "CG-AUD-001", "action": "manifest_uploaded", "actor": "cargo.ops", "timestamp": "2025-05-18T07:30:00Z" } ] } } } } } }
+      }
+    },
+
+    "/api/v1/navigation/list": {
+      "get": {
+        "summary": "List navigation aids",
+        "responses": { "200": { "description": "Nav aids", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/NavAid" } }, "examples": { "list": { "$ref": "#/components/examples.NavAidListExample" } } } } } }
+      }
+    },
+    "/api/v1/navigation/get": {
+      "get": {
+        "summary": "Get nav aid",
+        "parameters": [{ "name": "aidId", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "200": { "description": "NavAid", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NavAid" }, "examples": { "one": { "$ref": "#/components/examples.NavAidOneExample" } } } } } }
+      }
+    },
+    "/api/v1/navigation/search": {
+      "get": {
+        "summary": "Search navigation aids",
+        "responses": { "200": { "description": "Search", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/NavAid" } }, "examples": { "search": { "$ref": "#/components.examples.NavAidListExample" } } } } } }
+      }
+    },
+    "/api/v1/navigation/create": {
+      "post": {
+        "summary": "Create nav aid",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NavAid" } } } },
+        "responses": { "201": { "description": "Created", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NavAid" }, "examples": { "created": { "$ref": "#/components.examples.NavAidOneExample" } } } } } }
+      }
+    },
+    "/api/v1/navigation/update": {
+      "put": {
+        "summary": "Update nav aid",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NavAid" } } } },
+        "responses": { "200": { "description": "Updated", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/NavAid" }, "examples": { "updated": { "$ref": "#/components.examples.NavAidOneExample" } } } } } }
+      }
+    },
+    "/api/v1/navigation/delete": {
+      "delete": {
+        "summary": "Delete nav aid",
+        "parameters": [{ "name": "aidId", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "204": { "description": "Deleted" } }
+      }
+    },
+    "/api/v1/navigation/status": {
+      "get": {
+        "summary": "Navigation aids status",
+        "responses": { "200": { "description": "Status", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/NavAid" } }, "examples": { "status": { "$ref": "#/components.examples.NavAidListExample" } } } } } }
+      }
+    },
+    "/api/v1/navigation/history": {
+      "get": {
+        "summary": "Nav aid history",
+        "responses": { "200": { "description": "History", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/NavAid" } }, "examples": { "history": { "$ref": "#/components.examples.NavAidListExample" } } } } } }
+      }
+    },
+    "/api/v1/navigation/stats": {
+      "get": {
+        "summary": "Navigation stats",
+        "responses": { "200": { "description": "Stats", "content": { "application/json": { "schema": { "type": "object" }, "examples": { "stats": { "value": { "navAids": 320, "outages": 2 } } } } } } }
+      }
+    },
+    "/api/v1/navigation/audit": {
+      "get": {
+        "summary": "Navigation audit",
+        "responses": { "200": { "description": "Audit", "content": { "application/json": { "schema": { "type": "array", "items": { "type": "object" } }, "examples": { "audit": { "value": [ { "id": "NV-AUD-001", "action": "calibrated", "actor": "nav.tech", "timestamp": "2025-02-11T06:00:00Z" } ] } } } } } }
+      }
+    },
+
+    "/api/v1/alerts/list": {
+      "get": {
+        "summary": "List operational alerts",
+        "responses": { "200": { "description": "Alerts", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Alert" } }, "examples": { "list": { "$ref": "#/components.examples.AlertListExample" } } } } } }
+      }
+    },
+    "/api/v1/alerts/get": {
+      "get": {
+        "summary": "Get alert detail",
+        "parameters": [{ "name": "alertId", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "200": { "description": "Alert", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Alert" }, "examples": { "one": { "$ref": "#/components.examples.AlertOneExample" } } } } } }
+      }
+    },
+    "/api/v1/alerts/search": {
+      "get": {
+        "summary": "Search alerts",
+        "responses": { "200": { "description": "Search", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Alert" } }, "examples": { "search": { "$ref": "#/components.examples.AlertListExample" } } } } } }
+      }
+    },
+    "/api/v1/alerts/create": {
+      "post": {
+        "summary": "Create alert (fake)",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Alert" } } } },
+        "responses": { "201": { "description": "Created", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Alert" }, "examples": { "created": { "$ref": "#/components.examples.AlertOneExample" } } } } } }
+      }
+    },
+    "/api/v1/alerts/update": {
+      "put": {
+        "summary": "Update alert",
+        "requestBody": { "required": true, "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Alert" } } } },
+        "responses": { "200": { "description": "Updated", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Alert" }, "examples": { "updated": { "$ref": "#/components.examples.AlertOneExample" } } } } } }
+      }
+    },
+    "/api/v1/alerts/delete": {
+      "delete": {
+        "summary": "Delete alert",
+        "parameters": [{ "name": "alertId", "in": "query", "schema": { "type": "string" }, "required": true }],
+        "responses": { "204": { "description": "Deleted" } }
+      }
+    },
+    "/api/v1/alerts/status": {
+      "get": {
+        "summary": "Alert status",
+        "responses": { "200": { "description": "Status", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Alert" } }, "examples": { "status": { "$ref": "#/components.examples.AlertListExample" } } } } } }
+      }
+    },
+    "/api/v1/alerts/history": {
+      "get": {
+        "summary": "Alert history",
+        "responses": { "200": { "description": "History", "content": { "application/json": { "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Alert" } }, "examples": { "history": { "$ref": "#/components.examples.AlertListExample" } } } } } }
+      }
+    },
+    "/api/v1/alerts/stats": {
+      "get": {
+        "summary": "Alert statistics",
+        "responses": { "200": { "description": "Stats", "content": { "application/json": { "schema": { "type": "object" }, "examples": { "stats": { "value": { "activeAlerts": 4, "resolved": 120 } } } } } } }
+      }
+    },
+    "/api/v1/alerts/audit": {
+      "get": {
+        "summary": "Alert audit",
+        "responses": { "200": { "description": "Audit", "content": { "application/json": { "schema": { "type": "array", "items": { "type": "object" } }, "examples": { "audit": { "value": [ { "id": "AL-AUD-001", "action": "alert_created", "actor": "sensor.1", "timestamp": "2025-09-01T13:45:00Z" } ] } } } } } }
+      }
+    }
+
+  },
+  "components": {
+    "schemas": {
+      "Aircraft": {
+        "type": "object",
+        "properties": {
+          "tailNumber": { "type": "string" },
+          "model": { "type": "string" },
+          "manufacturer": { "type": "string" },
+          "registrationCountry": { "type": "string" },
+          "status": { "type": "string", "enum": ["active", "maintenance", "grounded"] }
+        },
+        "required": ["tailNumber", "model"]
+      },
+      "Flight": {
+        "type": "object",
+        "properties": {
+          "flightId": { "type": "string" },
+          "airline": { "type": "string" },
+          "origin": { "type": "string" },
+          "destination": { "type": "string" },
+          "departureTime": { "type": "string", "format": "date-time" },
+          "arrivalTime": { "type": "string", "format": "date-time" },
+          "status": { "type": "string" }
+        },
+        "required": ["flightId", "origin", "destination"]
+      },
+      "Airport": {
+        "type": "object",
+        "properties": {
+          "iata": { "type": "string" },
+          "icao": { "type": "string" },
+          "name": { "type": "string" },
+          "city": { "type": "string" },
+          "country": { "type": "string" },
+          "status": { "type": "string" }
+        },
+        "required": ["iata", "name"]
+      },
+      "CrewMember": {
+        "type": "object",
+        "properties": {
+          "crewId": { "type": "string" },
+          "name": { "type": "string" },
+          "role": { "type": "string" },
+          "licenseNumber": { "type": "string" },
+          "status": { "type": "string" }
+        },
+        "required": ["crewId", "name"]
+      },
+      "MaintenanceRecord": {
+        "type": "object",
+        "properties": {
+          "recordId": { "type": "string" },
+          "aircraftTail": { "type": "string" },
+          "description": { "type": "string" },
+          "performedBy": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "status": { "type": "string" }
+        },
+        "required": ["recordId", "aircraftTail"]
+      },
+      "WeatherReport": {
+        "type": "object",
+        "properties": {
+          "reportId": { "type": "string" },
+          "airport": { "type": "string" },
+          "metar": { "type": "string" },
+          "taf": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        },
+        "required": ["reportId", "airport"]
+      },
+      "Booking": {
+        "type": "object",
+        "properties": {
+          "bookingId": { "type": "string" },
+          "passengerName": { "type": "string" },
+          "flightId": { "type": "string" },
+          "seat": { "type": "string" },
+          "status": { "type": "string" }
+        },
+        "required": ["bookingId", "passengerName"]
+      },
+      "Cargo": {
+        "type": "object",
+        "properties": {
+          "cargoId": { "type": "string" },
+          "description": { "type": "string" },
+          "weightKg": { "type": "number" },
+          "origin": { "type": "string" },
+          "destination": { "type": "string" },
+          "status": { "type": "string" }
+        },
+        "required": ["cargoId", "weightKg"]
+      },
+      "NavAid": {
+        "type": "object",
+        "properties": {
+          "aidId": { "type": "string" },
+          "type": { "type": "string" },
+          "location": { "type": "string" },
+          "status": { "type": "string" }
+        },
+        "required": ["aidId", "type"]
+      },
+      "Alert": {
+        "type": "object",
+        "properties": {
+          "alertId": { "type": "string" },
+          "level": { "type": "string" },
+          "message": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "resolved": { "type": "boolean" }
+        },
+        "required": ["alertId", "message"]
+      }
+    },
+
+    "examples": {
+      "AircraftListExample": {
+        "summary": "Three sample aircraft",
+        "value": [
+          { "tailNumber": "N123AA", "model": "A320-200", "manufacturer": "Airbus", "registrationCountry": "US", "status": "active" },
+          { "tailNumber": "G-ABCD", "model": "B737-800", "manufacturer": "Boeing", "registrationCountry": "UK", "status": "maintenance" },
+          { "tailNumber": "VT-XYZ", "model": "A330-300", "manufacturer": "Airbus", "registrationCountry": "IN", "status": "grounded" }
+        ]
+      },
+      "AircraftOneExample": {
+        "summary": "Single sample aircraft",
+        "value": { "tailNumber": "N123AA", "model": "A320-200", "manufacturer": "Airbus", "registrationCountry": "US", "status": "active" }
+      },
+
+      "FlightListExample": {
+        "summary": "Three sample flights",
+        "value": [
+          { "flightId": "AA100", "airline": "AirAlpha", "origin": "JFK", "destination": "LHR", "departureTime": "2025-10-08T14:30:00Z", "arrivalTime": "2025-10-08T22:30:00Z", "status": "scheduled" },
+          { "flightId": "BA250", "airline": "BlueAir", "origin": "LHR", "destination": "DXB", "departureTime": "2025-10-08T09:00:00Z", "arrivalTime": "2025-10-08T17:45:00Z", "status": "delayed" },
+          { "flightId": "IN900", "airline": "IndigoNow", "origin": "DEL", "destination": "BOM", "departureTime": "2025-10-08T06:00:00Z", "arrivalTime": "2025-10-08T07:30:00Z", "status": "landed" }
+        ]
+      },
+      "FlightOneExample": {
+        "summary": "Single flight",
+        "value": { "flightId": "AA100", "airline": "AirAlpha", "origin": "JFK", "destination": "LHR", "departureTime": "2025-10-08T14:30:00Z", "arrivalTime": "2025-10-08T22:30:00Z", "status": "scheduled" }
+      },
+
+      "AirportListExample": {
+        "summary": "Three airports",
+        "value": [
+          { "iata": "JFK", "icao": "KJFK", "name": "John F. Kennedy Intl", "city": "New York", "country": "USA", "status": "open" },
+          { "iata": "LHR", "icao": "EGLL", "name": "Heathrow", "city": "London", "country": "UK", "status": "open" },
+          { "iata": "DEL", "icao": "VIDP", "name": "Indira Gandhi Intl", "city": "New Delhi", "country": "India", "status": "open" }
+        ]
+      },
+      "AirportOneExample": {
+        "summary": "Single airport",
+        "value": { "iata": "JFK", "icao": "KJFK", "name": "John F. Kennedy Intl", "city": "New York", "country": "USA", "status": "open" }
+      },
+
+      "CrewListExample": {
+        "summary": "Three crew members",
+        "value": [
+          { "crewId": "CR100", "name": "Jane Doe", "role": "Captain", "licenseNumber": "LIC-4321", "status": "available" },
+          { "crewId": "CR101", "name": "Bob Smith", "role": "First Officer", "licenseNumber": "LIC-9876", "status": "on_duty" },
+          { "crewId": "CR102", "name": "Alice Ray", "role": "Flight Attendant", "licenseNumber": "LIC-1234", "status": "off_duty" }
+        ]
+      },
+      "CrewOneExample": {
+        "summary": "Single crew member",
+        "value": { "crewId": "CR100", "name": "Jane Doe", "role": "Captain", "licenseNumber": "LIC-4321", "status": "available" }
+      },
+
+      "MaintenanceListExample": {
+        "summary": "Three maintenance records",
+        "value": [
+          { "recordId": "MR-001", "aircraftTail": "N123AA", "description": "A-check", "performedBy": "Hangar A", "timestamp": "2025-09-01T08:00:00Z", "status": "completed" },
+          { "recordId": "MR-002", "aircraftTail": "G-ABCD", "description": "Engine inspection", "performedBy": "Hangar B", "timestamp": "2025-09-10T10:30:00Z", "status": "in_progress" },
+          { "recordId": "MR-003", "aircraftTail": "VT-XYZ", "description": "Landing gear replacement", "performedBy": "Hangar C", "timestamp": "2025-09-20T12:00:00Z", "status": "scheduled" }
+        ]
+      },
+      "MaintenanceOneExample": {
+        "summary": "Single maintenance record",
+        "value": { "recordId": "MR-001", "aircraftTail": "N123AA", "description": "A-check", "performedBy": "Hangar A", "timestamp": "2025-09-01T08:00:00Z", "status": "completed" }
+      },
+
+      "WeatherListExample": {
+        "summary": "Three weather reports",
+        "value": [
+          { "reportId": "W-001", "airport": "JFK", "metar": "KJFK 081451Z 09010KT 10SM FEW020 18/12 A2992", "taf": "TAF ...", "timestamp": "2025-10-08T14:51:00Z" },
+          { "reportId": "W-002", "airport": "LHR", "metar": "EGLL 081400Z 25008KT 9999 SCT020 15/09 Q1018", "taf": "TAF ...", "timestamp": "2025-10-08T14:00:00Z" },
+          { "reportId": "W-003", "airport": "DEL", "metar": "VIDP 081300Z 01003KT 5000 HZ 30/22 Q1006", "taf": "TAF ...", "timestamp": "2025-10-08T13:00:00Z" }
+        ]
+      },
+      "WeatherOneExample": {
+        "summary": "Single weather report",
+        "value": { "reportId": "W-001", "airport": "JFK", "metar": "KJFK 081451Z 09010KT 10SM FEW020 18/12 A2992", "taf": "TAF ...", "timestamp": "2025-10-08T14:51:00Z" }
+      },
+
+      "BookingListExample": {
+        "summary": "Three bookings",
+        "value": [
+          { "bookingId": "BK-001", "passengerName": "Ravi Kumar", "flightId": "IN900", "seat": "12A", "status": "confirmed" },
+          { "bookingId": "BK-002", "passengerName": "Sara Lee", "flightId": "AA100", "seat": "4C", "status": "checked_in" },
+          { "bookingId": "BK-003", "passengerName": "Tom H", "flightId": "BA250", "seat": "22B", "status": "cancelled" }
+        ]
+      },
+      "BookingOneExample": {
+        "summary": "Single booking",
+        "value": { "bookingId": "BK-001", "passengerName": "Ravi Kumar", "flightId": "IN900", "seat": "12A", "status": "confirmed" }
+      },
+
+      "CargoListExample": {
+        "summary": "Three cargo shipments",
+        "value": [
+          { "cargoId": "CG-001", "description": "Pharma goods", "weightKg": 120.5, "origin": "LHR", "destination": "JFK", "status": "in_transit" },
+          { "cargoId": "CG-002", "description": "Electronics", "weightKg": 540.0, "origin": "BOM", "destination": "DXB", "status": "loaded" },
+          { "cargoId": "CG-003", "description": "Perishables", "weightKg": 85.2, "origin": "CDG", "destination": "DEL", "status": "delivered" }
+        ]
+      },
+      "CargoOneExample": {
+        "summary": "Single cargo",
+        "value": { "cargoId": "CG-001", "description": "Pharma goods", "weightKg": 120.5, "origin": "LHR", "destination": "JFK", "status": "in_transit" }
+      },
+
+      "NavAidListExample": {
+        "summary": "Three navigation aids",
+        "value": [
+          { "aidId": "NA-001", "type": "VOR", "location": "JFK", "status": "operational" },
+          { "aidId": "NA-002", "type": "NDB", "location": "DEL", "status": "operational" },
+          { "aidId": "NA-003", "type": "ILS", "location": "LHR", "status": "maintenance" }
+        ]
+      },
+      "NavAidOneExample": {
+        "summary": "Single nav aid",
+        "value": { "aidId": "NA-001", "type": "VOR", "location": "JFK", "status": "operational" }
+      },
+
+      "AlertListExample": {
+        "summary": "Three alerts",
+        "value": [
+          { "alertId": "AL-001", "level": "critical", "message": "Runway incursion detected", "timestamp": "2025-10-08T11:00:00Z", "resolved": false },
+          { "alertId": "AL-002", "level": "warning", "message": "Severe crosswind expected", "timestamp": "2025-10-08T09:30:00Z", "resolved": false },
+          { "alertId": "AL-003", "level": "info", "message": "Terminal gate change", "timestamp": "2025-10-07T22:00:00Z", "resolved": true }
+        ]
+      },
+      "AlertOneExample": {
+        "summary": "Single alert",
+        "value": { "alertId": "AL-001", "level": "critical", "message": "Runway incursion detected", "timestamp": "2025-10-08T11:00:00Z", "resolved": false }
+      }
+    }
+  }
+}
