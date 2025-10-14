@@ -110,7 +110,7 @@ vectordb = Chroma(
 
 retriever = vectordb.as_retriever(search_type="similarity", search_kwargs={"k": 3})
 
-query = "What is the Swiss Airlines cancellation policy?"
+query = "What is the Swiss Airlines cancellation policy?"   
 print(f"\n🔎 Query: {query}")
 results = retriever.get_relevant_documents(query)
 
